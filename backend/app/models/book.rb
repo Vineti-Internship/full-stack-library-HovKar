@@ -1,3 +1,5 @@
 class Book < ApplicationRecord
   belongs_to :author
+  validates :title, :author_id, presence: true #description and rating are optional
+  validates :rating, :inclusion => { :in => 0..10 }
 end
