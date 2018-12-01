@@ -1,28 +1,51 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Authors } from './Components/Authors';
+import { Books } from './Components/Books';
+import { Selector } from './Components/Selector';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+class App extends React.PureComponent {
+
+  constructor(props) {
+      super(props)
+
+      this.state = {
+        selector: "author",
+      }
+      
+      this.changeCategory = this.changeCategory.bind(this);
+      
   }
+
+  changeCategory(newSelector) {
+      this.setState({
+          selector: newSelector
+      });
+
+  }
+
+  
+  render() {
+  
+      if(this.state.selector === "author"){
+          return (
+              <React.Fragment>
+                  <Selector onChange={this.changeCategory}/>
+                  <Authors/>                  
+              </React.Fragment>
+          );
+      }
+      else if(this.state.selector === "book"){
+          return (
+              <React.Fragment>
+                  <Selector onChange={this.changeCategory}/>
+                  <Books />            
+              </React.Fragment>
+          );
+      }
+      
+  }
+
 }
+
 
 export default App;
