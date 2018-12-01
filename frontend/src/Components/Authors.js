@@ -2,9 +2,15 @@ import React from 'react';
 import './App.css';
 
 export class Authors extends React.PureComponent {
-    state = {
+  constructor(props) {
+    super(props);
+    this.state = {
       authors: []
-    }
+    };
+  }
+    // state = {
+    //   authors: []
+    // }
   
     async componentDidMount() {
       const result = await fetch('http://localhost:4000/authors');
