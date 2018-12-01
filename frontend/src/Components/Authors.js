@@ -1,29 +1,45 @@
 import React from 'react';
+import { NewAuthor } from './_new_author';
 import './App.css';
 
-export class Authors extends React.PureComponent {
+export class Authors extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       authors: []
     };
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.addNewAuthor = this.addNewAuthor.bind(this)
   }
-    // state = {
-    //   authors: []
-    // }
-  
-    async componentDidMount() {
-      const result = await fetch('http://localhost:4000/authors');
-      this.setState({authors: await result.json()});
+  handleFormSubmit(fullName, email){
+    let body = JSON.stringify({author: {fullName: fullName, email: email} })
+    fetch('http://localhost:4000/authors', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: body,
+      }).then((response) => {return response.json()})
+      .then((author)=>{
+        this.addNewAuthor(author)
+      })
     }
+  addNewAuthor(author){
+    this.setState({
+      authors: this.state.authors.concat(author)
+    })
+  }  
+  async componentDidMount() {
+    const result = await fetch('http://localhost:4000/authors');
+    this.setState({authors: await result.json()});
+  }
   
-    render() {
-      const { authors } = this.state;
-  
+  render() {
+    const { authors } = this.state;  
       return (
         
         <React.Fragment>
-           
+            <NewAuthor handleFormSubmit={this.handleFormSubmit}/>
             <h1>Authors</h1>
             <table style = {{width: '90%'}}>
             <tr> 

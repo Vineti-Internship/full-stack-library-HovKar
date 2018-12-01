@@ -6,7 +6,8 @@ export const NewBook = (props) => {
     return(
         <React.Fragment>
             <h1>Add book</h1>
-            <form>
+            <form onSubmit={ (e) => { props.handleFormSubmit(formFields.author_id.value, formFields.title.value, formFields.description.value, formFields.rating.value); e.target.reset();}
+}>
                 <input ref={input => formFields.author_id = input} placeholder="Enter your ID"/><br/>
                 <input ref={input => formFields.title = input} placeholder="Enter book's title"/><br/>
                 <input ref={input => formFields.description = input} placeholder="Enter book's description"/><br/>
