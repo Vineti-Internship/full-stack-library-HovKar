@@ -1,5 +1,5 @@
 class Author < ApplicationRecord
-  has_many :books
+  has_many :books, dependent: :destroy
   validates :fullName, :email, presence: true
   validates :fullName, length: { in: 1..25 }
   validates :email, format: /@/
